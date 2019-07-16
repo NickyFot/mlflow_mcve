@@ -35,5 +35,20 @@ class ClassifierWrapperPyfunc(object):
     def __init__(self, model):
         self._model = model
 
-    def predict(self, input: pd.DataFrame) -> pd.DataFrame:
-        return self._model.predict(input)
+    class ClassifierWrapperPyfunc(object):
+        def __init__(self, model):
+            self._model = model
+
+        def predict(self, input: pd.DataFrame) -> pd.DataFrame:
+            index = input.index.tolist()
+            categories, pred = self._model.predict_proba(input)
+            # print(pred)
+            result = {'index': index}
+            for row in pred:
+                for i, cat in enumerate(categories):
+                    if cat not in result:
+                        result[cat] = [row[i]]
+                    else:
+                        result[cat].append(row[i])
+            result = pd.DataFrame(result, index=result['index'])
+            return result
