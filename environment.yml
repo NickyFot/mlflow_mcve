@@ -1,0 +1,12 @@
+name: hello_databricks
+channels:
+  - defaults
+dependencies:
+  - numpy=1.14.3
+  - pandas=0.22.0
+  - cloudpickle
+  - pip:
+    - mlflow
+    - scikit-learn==0.21.2
+prefix: /Users/ne577la/.conda/envs/hello_databricks
+
